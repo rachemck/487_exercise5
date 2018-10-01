@@ -49,9 +49,54 @@ var players = [
 ];
 //Write your function here
 
+//initialize a variable for the HTML content your going to build
+var html ='';
+var i;
+//get the empty table content area
+var tableContent = document.getElementById('table-content');
+
+function buildTable(){
+  //start with the table header
+  html += '<tr><th>First</th><th>Last</th><th>Position</th><th>Year</th></tr>';
+
+  for(i = 0; i < players.length; i++){
+    console.log(players[i].first);
+    var senior = players[i].year == 'Senior';
+    if(senior){
+      console.log('You are a Senior!');
+      html += '<tr>';
+      html += '<td><strong>' + players[i].first + '</strong></td>';
+      html += '<td><strong>' + players[i].last + '</strong></td>';
+      html += '<td><strong>' + players[i].position + '</strong></td>';
+      html += '<td><strong>' + players[i].year + '</strong></td>';
+      html += '</tr>';
+    }else{
+      html += '<tr>';
+      html += '<td>' + players[i].first + '</td>';
+      html += '<td>' + players[i].last + '</td>';
+      html += '<td>' + players[i].position + '</td>';
+      html += '<td>' + players[i].year + '</td>';
+      html += '</tr>';
+    }
+  }//closing the for loop
+  //building the HTML
+  tableContent.innerHTML = html;
+}//end of the buildTable function
+
+buildTable();
+
+
+
 /*
 EXTRA CREDIT CHALLENGE (5 POINTS): Write a function that compares the list above with the list below, finds the players that made the All-State team, and displays a message with the results: "Congratulations to Springfield's 2018 North Carolina All-State honorees: ____." Display the message in a div below the table.
 Hint: You need two loops, one of which will be 'nested'.*/
+var msg = '';
+var allStarName = '';
+var j;
+var congrats = document.getElementById('all-star');
+
+
+
 var allStars = [
   {
     first:'Melanie',
@@ -97,20 +142,18 @@ var allStars = [
   }
 ];
 
-//initialize a variable for the HTML content your going to build
-var html ='';
-var i;
-//get the empty table content area
-var tableContent = document.getElementById('table-content');
 
-function buildTable(){
-  //start with the table header
-  html += '<tr><th>First</th><th>Last</th><th>Position</th><th>Year</th></tr>';
-
-  for (i = 0; i < array.length; i++){
-    html += "<table border = '1' style='border-collapse: collapse;'>" +'<tr>' + '<th>'+ players[i].first + "</th>" + '<th>'+ players[i].last + "</th>" + '</tr>' + '<tr>' + '<td>' + players[i].position + '</td>' + '<td>' + players[i].year + '</td>';
-  }
-
+function congratsMessage(){
+  for(var j = 0; j < allStars.length; j++){
+    console.log(allStars[j].first);
+    for(i = 0; i <players.length; i++){
+      if(allStars[j].first == players[i].first){
+        console.log('Congrats Springfield Tigers!');
+        allStarName += players[i].first + ' ' + players[i].last +'<br>';
+      }//closing the if/else
+    }//closing the for loop
+  }//closing the for loop
+  msg += '<strong>Congratulations to Springfield\'s 2018 North Carolina All-State honorees: </strong>' + '<br>' +allStarName;
+  congrats.innerHTML = msg;
 }
-
-buildTable();
+congratsMessage();
